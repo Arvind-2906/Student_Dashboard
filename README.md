@@ -1,10 +1,19 @@
 # Student Dashboard
 
-This workspace contains a Next.js 16 dashboard for tracking student courses and activity. The app uses Supabase for course data, a server-rendered dashboard page, and a small set of client components for navigation and motion-heavy UI.
+This workspace contains a Next.js dashboard for tracking student courses and activity. The app uses Supabase for course data, a server-rendered dashboard page, and a small set of client components for navigation and motion-heavy UI.
 
 ## Architecture
 
-The main page lives in `student-dashboard/src/app/page.tsx` and fetches courses directly from Supabase on the server. That keeps the data access path simple, avoids shipping the database query logic to the browser, and makes the first render depend on fresh data. The visual structure is split into focused components under `student-dashboard/src/components/`, with the dashboard composed as a bento-style grid of a hero tile, activity tile, and course cards.
+The dashboard is server-rendered by Next.js and fetches course data from Supabase on the server for fast, fresh first renders. UI is composed from focused components under `student-dashboard/src/components/` and rendered as a bento-style grid (hero, activity, course cards).
+
+```mermaid
+flowchart LR
+	User[User / Browser] -->|HTTP request| NextServer[Next.js Server (Server Components)]
+	NextServer -->|queries| Supabase[(Supabase)]
+	NextServer -->|renders| Browser[Browser]
+	Browser -->|hydrates client parts| ClientComponents[Client Components\n(Sidebar, BentoGrid)]
+	ClientComponents -->|state & animation| Browser
+```
 
 ## Server/Client Split
 
