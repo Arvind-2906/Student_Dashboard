@@ -8,10 +8,10 @@ The dashboard is server-rendered by Next.js and fetches course data from Supabas
 
 ```mermaid
 flowchart LR
-	User[User / Browser] -->|HTTP request| NextServer[Next.js Server (Server Components)]
+	User[User / Browser] -->|HTTP request| NextServer["Next.js Server<br/>(Server Components)"]
 	NextServer -->|queries| Supabase[(Supabase)]
 	NextServer -->|renders| Browser[Browser]
-	Browser -->|hydrates client parts| ClientComponents[Client Components\n(Sidebar, BentoGrid)]
+	Browser -->|hydrates client parts| ClientComponents["Client Components<br/>Sidebar, BentoGrid"]
 	ClientComponents -->|state & animation| Browser
 ```
 
